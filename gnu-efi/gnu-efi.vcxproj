@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3135D563-9596-4584-9ED6-616ADEC52974}</ProjectGuid>
+    <RootNamespace>gnuefi</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Lib\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)inc;$(ProjectDir)inc\x86_64</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)inc</AdditionalIncludeDirectories>
+      <ExceptionHandling>false</ExceptionHandling>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4312</DisableSpecificWarnings>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <OmitFramePointers>false</OmitFramePointers>
+      <AdditionalOptions>/Oi-</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <SubSystem>EFI Application</SubSystem>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="lib\boxdraw.c" />
+    <ClCompile Include="lib\cmdline.c" />
+    <ClCompile Include="lib\console.c" />
+    <ClCompile Include="lib\crc.c" />
+    <ClCompile Include="lib\data.c" />
+    <ClCompile Include="lib\debug.c" />
+    <ClCompile Include="lib\dpath.c" />
+    <ClCompile Include="lib\error.c" />
+    <ClCompile Include="lib\event.c" />
+    <ClCompile Include="lib\exit.c" />
+    <ClCompile Include="lib\guid.c" />
+    <ClCompile Include="lib\hand.c" />
+    <ClCompile Include="lib\hw.c" />
+    <ClCompile Include="lib\init.c" />
+    <ClCompile Include="lib\lock.c" />
+    <ClCompile Include="lib\misc.c" />
+    <ClCompile Include="lib\pause.c" />
+    <ClCompile Include="lib\print.c" />
+    <ClCompile Include="lib\runtime\efirtlib.c" />
+    <ClCompile Include="lib\runtime\rtdata.c" />
+    <ClCompile Include="lib\runtime\rtlock.c" />
+    <ClCompile Include="lib\runtime\rtstr.c" />
+    <ClCompile Include="lib\runtime\vm.c" />
+    <ClCompile Include="lib\smbios.c" />
+    <ClCompile Include="lib\sread.c" />
+    <ClCompile Include="lib\str.c" />
+    <ClCompile Include="lib\x86_64\callwrap.c" />
+    <ClCompile Include="lib\x86_64\initplat.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="lib\x86_64\math.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\efi.h" />
+    <ClInclude Include="inc\efiapi.h" />
+    <ClInclude Include="inc\eficompiler.h" />
+    <ClInclude Include="inc\eficon.h" />
+    <ClInclude Include="inc\eficonex.h" />
+    <ClInclude Include="inc\efidebug.h" />
+    <ClInclude Include="inc\efidef.h" />
+    <ClInclude Include="inc\efidevp.h" />
+    <ClInclude Include="inc\efierr.h" />
+    <ClInclude Include="inc\efifs.h" />
+    <ClInclude Include="inc\efigpt.h" />
+    <ClInclude Include="inc\efiip.h" />
+    <ClInclude Include="inc\efilib.h" />
+    <ClInclude Include="inc\efilink.h" />
+    <ClInclude Include="inc\efinet.h" />
+    <ClInclude Include="inc\efipart.h" />
+    <ClInclude Include="inc\efipciio.h" />
+    <ClInclude Include="inc\efipoint.h" />
+    <ClInclude Include="inc\efiprot.h" />
+    <ClInclude Include="inc\efipxebc.h" />
+    <ClInclude Include="inc\efirtlib.h" />
+    <ClInclude Include="inc\efiser.h" />
+    <ClInclude Include="inc\efisetjmp.h" />
+    <ClInclude Include="inc\efishellintf.h" />
+    <ClInclude Include="inc\efishellparm.h" />
+    <ClInclude Include="inc\efistdarg.h" />
+    <ClInclude Include="inc\efitcp.h" />
+    <ClInclude Include="inc\efiudp.h" />
+    <ClInclude Include="inc\efiui.h" />
+    <ClInclude Include="inc\efi_nii.h" />
+    <ClInclude Include="inc\efi_pxe.h" />
+    <ClInclude Include="inc\lib.h" />
+    <ClInclude Include="inc\libsmbios.h" />
+    <ClInclude Include="inc\pci22.h" />
+    <ClInclude Include="inc\protocol\adapterdebug.h" />
+    <ClInclude Include="inc\protocol\eficonsplit.h" />
+    <ClInclude Include="inc\protocol\efidbg.h" />
+    <ClInclude Include="inc\protocol\efivar.h" />
+    <ClInclude Include="inc\protocol\ia64\eficontext.h" />
+    <ClInclude Include="inc\protocol\intload.h" />
+    <ClInclude Include="inc\protocol\legacyboot.h" />
+    <ClInclude Include="inc\protocol\piflash64.h" />
+    <ClInclude Include="inc\protocol\vgaclass.h" />
+    <ClInclude Include="inc\romload.h" />
+    <ClInclude Include="inc\x86_64\efibind.h" />
+    <ClInclude Include="inc\x86_64\efilibplat.h" />
+    <ClInclude Include="inc\x86_64\efisetjmp_arch.h" />
+    <ClInclude Include="inc\x86_64\pe.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

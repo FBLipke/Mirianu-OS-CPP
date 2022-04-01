@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mirianu-Boot", "Mirianu-Boot\Mirianu-Boot.vcxproj", "{6B6200F9-29BD-4491-A9E2-E2064FE2A1A2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3135D563-9596-4584-9ED6-616ADEC52974} = {3135D563-9596-4584-9ED6-616ADEC52974}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gnu-efi", "gnu-efi\gnu-efi.vcxproj", "{3135D563-9596-4584-9ED6-616ADEC52974}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mirianu-CLib", "Mirianu-CLib\Mirianu-CLib.vcxproj", "{01EEBBF4-E30B-44C1-B4ED-B01CC269077D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3135D563-9596-4584-9ED6-616ADEC52974} = {3135D563-9596-4584-9ED6-616ADEC52974}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mirianu-Kernel", "Mirianu-Kernel\Mirianu-Kernel.vcxproj", "{7D182AF8-AF64-417A-BEAE-C77E23DAFE24}"
+	ProjectSection(ProjectDependencies) = postProject
+		{01EEBBF4-E30B-44C1-B4ED-B01CC269077D} = {01EEBBF4-E30B-44C1-B4ED-B01CC269077D}
+		{6B6200F9-29BD-4491-A9E2-E2064FE2A1A2} = {6B6200F9-29BD-4491-A9E2-E2064FE2A1A2}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B6200F9-29BD-4491-A9E2-E2064FE2A1A2}.Debug|x64.ActiveCfg = Debug|x64
+		{6B6200F9-29BD-4491-A9E2-E2064FE2A1A2}.Debug|x64.Build.0 = Debug|x64
+		{3135D563-9596-4584-9ED6-616ADEC52974}.Debug|x64.ActiveCfg = Debug|x64
+		{3135D563-9596-4584-9ED6-616ADEC52974}.Debug|x64.Build.0 = Debug|x64
+		{01EEBBF4-E30B-44C1-B4ED-B01CC269077D}.Debug|x64.ActiveCfg = Debug|x64
+		{01EEBBF4-E30B-44C1-B4ED-B01CC269077D}.Debug|x64.Build.0 = Debug|x64
+		{7D182AF8-AF64-417A-BEAE-C77E23DAFE24}.Debug|x64.ActiveCfg = Debug|x64
+		{7D182AF8-AF64-417A-BEAE-C77E23DAFE24}.Debug|x64.Build.0 = Debug|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5380C3B-30FA-4B46-ACBF-1D7EFF14D18F}
+	EndGlobalSection
+EndGlobal

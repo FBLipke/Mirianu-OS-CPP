@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{7d182af8-af64-417a-beae-c77e23dafe24}</ProjectGuid>
+    <RootNamespace>MarbleKernel</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\nasm.props" />
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)inc;$(SolutionDir)gnu-efi\inc;$(SolutionDir)Mirianu-Boot\inc;$(SolutionDir)Mirianu-CLib\inc;$(IncludePath)</IncludePath>
+    <TargetExt>.bin</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(SolutionDir)Mirianu-Image\</OutDir>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+    <IntDir>$(SolutionDir)$(ProjectName)\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_ARCH_X86_64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ExceptionHandling>false</ExceptionHandling>
+      <CompileAs>Default</CompileAs>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AssemblerOutput>All</AssemblerOutput>
+      <CallingConvention>Cdecl</CallingConvention>
+      <OmitFramePointers>false</OmitFramePointers>
+      <Optimization>Disabled</Optimization>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <SDLCheck>false</SDLCheck>
+      <BasicRuntimeChecks>
+      </BasicRuntimeChecks>
+      <RuntimeLibrary />
+    </ClCompile>
+    <Link>
+      <SubSystem>Native</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <LargeAddressAware>true</LargeAddressAware>
+      <EntryPointSymbol>kmain</EntryPointSymbol>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <RandomizedBaseAddress />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Kernel\Drivers\Driver.cpp" />
+    <ClCompile Include="src\Kernel\Drivers\Video\BasicRenderer.cpp" />
+    <ClCompile Include="src\Kernel\Kernel.cpp" />
+    <ClCompile Include="src\Kernel\Memory\EFIMemory.cpp" />
+    <ClCompile Include="src\kernel_Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\Kernel\Drivers\Drivers.h" />
+    <ClInclude Include="inc\Kernel\Drivers\Video\BasicRenderer.h" />
+    <ClInclude Include="inc\Kernel\Drivers\x86_64\GDT\x86_64_gdt.h" />
+    <ClInclude Include="inc\Kernel\Drivers\x86_64\IDT\x86_64_idt.h" />
+    <ClInclude Include="inc\Kernel\Drivers\x86_64\x86_64.h" />
+    <ClInclude Include="inc\Kernel\List.h" />
+    <ClInclude Include="inc\Kernel\Memory\EFIMemory.h" />
+    <ClInclude Include="inc\Kernel\Platform\x86_64\ACPI\ACPI.h" />
+    <ClInclude Include="inc\Kernel_Main.h" />
+    <ClInclude Include="inc\Kernel\Kernel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="zap-light16.psf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\nasm.targets" />
+  </ImportGroup>
+</Project>
