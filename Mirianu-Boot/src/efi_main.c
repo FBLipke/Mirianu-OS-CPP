@@ -36,17 +36,19 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable)
 	
 	status = efi_Get_RSDP_Table(&bi, SystemTable);
 
-	if (EFI_ERROR(status) == EFI_ABORTED)
+	if (bi.RSDPTable == NULL)
 	{
 		Print(L"[E] Failed to get RSDP...\n");
 		return EFI_ABORTED;
 	}
+	else
+	{
+		Print(L"[BOOTX64] Loading Kernel...\n");
+	}
 
-	Print(L"Loading Kernel...\n");
-	
 	__LoadFile(&bi, mapKey, L"Mirianu-Kernel.bin", ImageHandle, SystemTable);
 
-	Print(L"[E] Kernel Closed!\n");
+	Print(L"[BOOTX64] Kernel Closed!\n");
 
 	while (1) { ___Halt(); }
 

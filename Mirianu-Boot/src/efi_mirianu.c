@@ -84,7 +84,7 @@ EFI_STATUS efi_Get_RSDP_Table(BLOCKINFO* blockinfo, EFI_SYSTEM_TABLE* SystemTabl
 	{
 		if (CompareGuid(&configTable[index].VendorGuid, &Acpi2TableGuid))
 		{
-			if (__strcmp("RSD PTR ", configTable->VendorTable, 8))
+			if (__strcmp("RSD PTR ", configTable->VendorTable, 8) == 1)
 			{
 				rsdp = (RSDP*)configTable->VendorTable;
 				rsdp_found = 1;
