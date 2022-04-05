@@ -81,12 +81,8 @@
   <ItemGroup>
     <ClInclude Include="inc\Kernel\Drivers\Drivers.h" />
     <ClInclude Include="inc\Kernel\Drivers\Video\BasicRenderer.h" />
-    <ClInclude Include="inc\Kernel\Drivers\x86_64\GDT\x86_64_gdt.h" />
-    <ClInclude Include="inc\Kernel\Drivers\x86_64\IDT\x86_64_idt.h" />
-    <ClInclude Include="inc\Kernel\Drivers\x86_64\x86_64.h" />
     <ClInclude Include="inc\Kernel\List.h" />
     <ClInclude Include="inc\Kernel\Memory\EFIMemory.h" />
-    <ClInclude Include="inc\Kernel\Platform\x86_64\ACPI\ACPI.h" />
     <ClInclude Include="inc\Kernel_Main.h" />
     <ClInclude Include="inc\Kernel\Kernel.h" />
   </ItemGroup>

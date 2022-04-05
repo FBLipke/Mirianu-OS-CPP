@@ -44,7 +44,7 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable)
 
 	Print(L"Loading Kernel...\n");
 	
-	__LoadFile(&bi, mapKey, L"Kernel.bin", ImageHandle, SystemTable);
+	__LoadFile(&bi, mapKey, L"Mirianu-Kernel.bin", ImageHandle, SystemTable);
 
 	Print(L"[E] Kernel Closed!\n");
 

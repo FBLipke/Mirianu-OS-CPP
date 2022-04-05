@@ -4,7 +4,6 @@
 #include <Kernel/Drivers/Drivers.h>
 #include <Kernel/Memory/EFIMemory.h>
 #include <Kernel/List.h>
-#include <Kernel/Platform/x86_64/ACPI/ACPI.h>
 
 class Kernel
 {
@@ -19,8 +18,4 @@ private:
 	BLOCKINFO* blockinfo;
 	DriverManager* drvManager;
 	BasicRenderer* renderer;
-	GDT* gdt;
-	IDT* idt;
-	ACPI* acpi;
 };
-

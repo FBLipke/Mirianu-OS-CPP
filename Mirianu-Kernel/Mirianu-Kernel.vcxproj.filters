@@ -41,22 +41,10 @@
     <ClInclude Include="inc\Kernel\Drivers\Video\BasicRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Kernel\Drivers\x86_64\x86_64.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Kernel\Drivers\x86_64\GDT\x86_64_gdt.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Kernel\Drivers\Drivers.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Kernel\Drivers\x86_64\IDT\x86_64_idt.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Kernel\Memory\EFIMemory.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Kernel\Platform\x86_64\ACPI\ACPI.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="inc\Kernel\List.h">

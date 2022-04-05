@@ -3,10 +3,6 @@
 #include <Kernel/Drivers/Video/BasicRenderer.h>
 #include <Kernel/List.h>
 
-#ifdef _ARCH_X86_64
-#include <Kernel/Drivers/x86_64/x86_64.h>
-#endif
-
 class Driver
 {
 public:

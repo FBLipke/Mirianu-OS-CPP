@@ -10,7 +10,6 @@ public:
     ~EFIMemory();
     void Print(BLOCKINFO* bi, BasicRenderer* renderer);
 private:
-
 };
 
 extern const char* EFI_MEMORY_TYPE_STRINGS[];
@@ -23,14 +22,11 @@ struct MemoryChunk
     size_t size;
 };
 
-
 class MemoryManager
 {
-
 protected:
     MemoryChunk* first;
 public:
-
     static MemoryManager* activeMemoryManager;
 
     MemoryManager();
@@ -50,5 +46,3 @@ void* operator new[](size_t size, void* ptr);
 
 void operator delete(void* ptr);
 void operator delete[](void* ptr);
-
-

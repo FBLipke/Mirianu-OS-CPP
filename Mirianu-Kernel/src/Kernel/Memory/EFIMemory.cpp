@@ -1,22 +1,23 @@
 #include <Kernel/Memory/EFIMemory.h>
 char uintTo_StringOutput[128];
+
 const char* EFI_MEMORY_TYPE_STRINGS[]
-    {
-        "EfiReservedMemoryType",
-        "EfiLoaderCode",
-        "EfiLoaderData",
-        "EfiBootServicesCode",
-        "EfiBootServicesData",
-        "EfiRuntimeServicesCode",
-        "EfiRuntimeServicesData",
-        "EfiConventionalMemory",
-        "EfiUnusableMemory",
-        "EfiACPIReclaimMemory",
-        "EfiACPIMemoryNVS",
-        "EfiMemoryMappedIO",
-        "EfiMemoryMappedIOPortSpace",
-        "EfiPalCode",
-    };
+{
+    "EfiReservedMemoryType",
+    "EfiLoaderCode",
+    "EfiLoaderData",
+    "EfiBootServicesCode",
+    "EfiBootServicesData",
+    "EfiRuntimeServicesCode",
+    "EfiRuntimeServicesData",
+    "EfiConventionalMemory",
+    "EfiUnusableMemory",
+    "EfiACPIReclaimMemory",
+    "EfiACPIMemoryNVS",
+    "EfiMemoryMappedIO",
+    "EfiMemoryMappedIOPortSpace",
+    "EfiPalCode",
+};
 
 const char* to_string(uint64_t value)
 {

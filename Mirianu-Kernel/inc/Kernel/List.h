@@ -21,7 +21,7 @@ public:
 
     ~List()
     {
-        this->Clear(); /*Remove all the items from the list*/
+        this->Clear(); /* Remove all the items from the list */
     }
 
     int size() { return size_; }
