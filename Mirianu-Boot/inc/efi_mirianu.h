@@ -172,9 +172,9 @@ typedef PACK(struct RSDP {
     uint8_t Checksum;
     uint8_t OEMId[6];
     uint8_t Revision;
-    SDTHeader* RSDTAddress;
+    uint32_t RSDT;
     uint32_t Length;
-    SDTHeader* XSDTAddress;
+    uint64_t XSDT;
     uint8_t ExtendedChecksum;
     uint8_t Reserved[3];
 }) RSDP;
@@ -193,6 +193,7 @@ typedef PACK(struct BLOCKINFO
     uint32_t               MMapDescriptorVersion;
     uint64_t               MMapDescriptorSize;
     RSDP*                  RSDPTable;
+    MCFGHeader*            MCFGHeader;
 }) BLOCKINFO;
 
 static BLOCKINFO bi;

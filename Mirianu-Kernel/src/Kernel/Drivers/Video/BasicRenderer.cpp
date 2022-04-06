@@ -11,13 +11,21 @@ void BasicRenderer::Init()
 	Print("[K] Console Output: EFI-Framebuffer\n");
 }
 
+void BasicRenderer::Close()
+{
+	ClearScreen();
+}
+
 void BasicRenderer::ClearScreen()
 {
-	for (unsigned long y = 0; y < fb->Height; y++)
+	CursorPosition.X = 0;
+	CursorPosition.Y = 0;
+
+	for (uint32_t y = 0; y < fb->Height; y++)
 	{
 		CursorPosition.Y += PSF1_CHRHEIGHT;
 		
-		for (unsigned long x = 0; x < fb->Width; x++)
+		for (uint32_t x = 0; x < fb->Width; x++)
 		{
 			CursorPosition.X += PSF1_CHRWIDTH;
 			Print(" ");

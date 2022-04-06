@@ -24,7 +24,9 @@ public:
 	~DriverManager();
 
 	void Start();
-
+	void Init();
+	void Stop();
+	void Close();
 	void Add(const CHAR8* key, Driver* drv);
 	void Remove(const CHAR8* key);
 private:

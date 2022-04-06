@@ -6,6 +6,7 @@ class BasicRenderer
 public:
 	BasicRenderer(Framebuffer* pFrambuffer);
 	void Init();
+	void Close();
 	void ClearScreen();
 	void Print(const char* str);
 	~BasicRenderer();

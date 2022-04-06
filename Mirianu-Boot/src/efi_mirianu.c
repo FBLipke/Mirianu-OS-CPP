@@ -72,6 +72,18 @@ EFI_BOOT_SERVICES* Get_BootService(EFI_SYSTEM_TABLE* systemTable)
 }
 
 
+EFI_STATUS efi_get_RSDP_Table_New()
+{
+	const EFI_GUID RS;
+}
+
+
+/// <summary>
+/// Returns the Address of the RSDP.
+/// </summary>
+/// <param name="blockinfo"></param>
+/// <param name="SystemTable"></param>
+/// <returns></returns>
 EFI_STATUS efi_Get_RSDP_Table(BLOCKINFO* blockinfo, EFI_SYSTEM_TABLE* SystemTable)
 {
 	EFI_CONFIGURATION_TABLE* configTable = SystemTable->ConfigurationTable;
@@ -87,7 +99,8 @@ EFI_STATUS efi_Get_RSDP_Table(BLOCKINFO* blockinfo, EFI_SYSTEM_TABLE* SystemTabl
 			if (__strcmp("RSD PTR ", configTable->VendorTable, 8) == 1)
 			{
 				rsdp = (RSDP*)configTable->VendorTable;
-				rsdp_found = 1;
+				if (rsdp->Revision != 0)
+					rsdp_found = 1;
 			}
 		}
 
@@ -323,7 +336,7 @@ uint32_t __strcmp(const char* a, const char* b, size_t length)
 {
 	for (size_t i = 0; i < length; i++) {
 
-		if (*a != *b)
+		if (a[i] != b[i])
 			return 0;
 	}
 

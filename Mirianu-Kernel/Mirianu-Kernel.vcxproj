@@ -87,6 +87,9 @@
     <ClInclude Include="inc\Kernel\Kernel.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="startup.nsh">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
     <None Include="zap-light16.psf">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </None>

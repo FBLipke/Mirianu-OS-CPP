@@ -38,6 +38,25 @@ void DriverManager::Start()
 		_drivers[i]->Start();
 }
 
+void DriverManager::Init()
+{
+	for (int i = _drivers.size(); i > 0; i--)
+		_drivers[i]->Init();
+}
+
+void DriverManager::Stop()
+{
+	for (int i = _drivers.size(); i > 0; i--)
+		_drivers[i]->Stop();
+}
+
+void DriverManager::Close()
+{
+	for (int i = _drivers.size(); i > 0; i--)
+		_drivers[i]->Close();
+}
+
+
 void DriverManager::Add(const CHAR8* key, Driver* drv)
 {
 	_drivers.push_back(key, drv);
