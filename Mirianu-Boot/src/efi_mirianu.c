@@ -1,29 +1,24 @@
 #include <efi_mirianu.h>
 
-// Constructor prototypes
 typedef void(__cdecl* _PVFV)(void);
 typedef int(__cdecl* _PIFV)(void);
 
-
-// Linker puts constructors between these sections, and we use them to locate constructor pointers.
 #pragma section(".CRT$XIA",long,read)
 #pragma section(".CRT$XIZ",long,read)
 #pragma section(".CRT$XCA",long,read)
 #pragma section(".CRT$XCZ",long,read)
 
-// Put .CRT data into .rdata section
 #pragma comment(linker, "/merge:.CRT=.rdata")
 
-// Pointers surrounding constructors
 __declspec(allocate(".CRT$XIA")) _PIFV __xi_a[] = { 0 };
 __declspec(allocate(".CRT$XIZ")) _PIFV __xi_z[] = { 0 };
 __declspec(allocate(".CRT$XCA")) _PVFV __xc_a[] = { 0 };
 __declspec(allocate(".CRT$XCZ")) _PVFV __xc_z[] = { 0 };
 
 extern __declspec(allocate(".CRT$XIA")) _PIFV __xi_a[];
-extern __declspec(allocate(".CRT$XIZ")) _PIFV __xi_z[];    // C initializers
+extern __declspec(allocate(".CRT$XIZ")) _PIFV __xi_z[];
 extern __declspec(allocate(".CRT$XCA")) _PVFV __xc_a[];
-extern __declspec(allocate(".CRT$XCZ")) _PVFV __xc_z[];    // C++ initializers
+extern __declspec(allocate(".CRT$XCZ")) _PVFV __xc_z[];
 
 static int _initterm_e(_PIFV* pfbegin, _PIFV* pfend)
 {
@@ -40,29 +35,27 @@ static int _initterm_e(_PIFV* pfbegin, _PIFV* pfend)
 	return ret;
 }
 
-
-// Call C++ constructors
 static void _initterm(_PVFV* pfbegin, _PVFV* pfend)
 {
 	while (pfbegin < pfend)
 	{
-		// if current table entry is non-NULL, call thru it.
 		if (*pfbegin != 0)
 			(**pfbegin)();
+
 		++pfbegin;
 	}
 }
 
 int CallConstructors()
 {
-	// Do C initialization
 	int initret = _initterm_e(__xi_a, __xi_z);
+
 	if (initret != 0) {
 		return 0;
 	}
 
-	// Do C++ initialization
 	_initterm(__xc_a, __xc_z);
+
 	return 1;
 }
 
@@ -70,13 +63,6 @@ EFI_BOOT_SERVICES* Get_BootService(EFI_SYSTEM_TABLE* systemTable)
 {
 	return systemTable->BootServices;
 }
-
-
-EFI_STATUS efi_get_RSDP_Table_New()
-{
-	const EFI_GUID RS;
-}
-
 
 /// <summary>
 /// Returns the Address of the RSDP.
@@ -95,14 +81,12 @@ EFI_STATUS efi_Get_RSDP_Table(BLOCKINFO* blockinfo, EFI_SYSTEM_TABLE* SystemTabl
 	for (UINTN index = 0; index < SystemTable->NumberOfTableEntries; index++)
 	{
 		if (CompareGuid(&configTable[index].VendorGuid, &Acpi2TableGuid))
-		{
 			if (__strcmp("RSD PTR ", configTable->VendorTable, 8) == 1)
 			{
 				rsdp = (RSDP*)configTable->VendorTable;
 				if (rsdp->Revision != 0)
 					rsdp_found = 1;
 			}
-		}
 
 		configTable++;
 	}
@@ -113,14 +97,12 @@ EFI_STATUS efi_Get_RSDP_Table(BLOCKINFO* blockinfo, EFI_SYSTEM_TABLE* SystemTabl
 		return EFI_SUCCESS;
 	}
 	else
-	{
 		return EFI_ABORTED;
-	}
 }
 
 void ClearScreen()
 {
-	EFI_GRAPHICS_OUTPUT_BLT_PIXEL color = { 43, 45, 47,0 };
+	EFI_GRAPHICS_OUTPUT_BLT_PIXEL color = { 43, 45, 47, 80 };
 	gop->Blt(gop, &color, EfiBltVideoFill, 0, 0, 0, 0, gop->Mode->Info->HorizontalResolution, gop->Mode->Info->VerticalResolution, 0);
 }
 
@@ -160,7 +142,7 @@ void __LoadFile(BLOCKINFO* bi, UINTN mapKey, CHAR16* Path, EFI_HANDLE ImageHandl
 			{
 				if (PEHeader.OptionalHeader.Subsystem != IMAGE_SUBSYSTEM_EFI_APPLICATION)
 				{
-					UINT64 i; // Iterator
+					UINT64 i = 0; // Iterator
 					UINT64 virt_size = 0; // Size of all the data sections combined, which we need to know in order to allocate the right number of pages
 					IMAGE_SECTION_HEADER section_headers_table[32]; // This table is an array of section headers
 					size = IMAGE_SIZEOF_SECTION_HEADER * (UINT64)PEHeader.FileHeader.NumberOfSections; // Size of section header table in file... Hm...
@@ -187,13 +169,9 @@ void __LoadFile(BLOCKINFO* bi, UINTN mapKey, CHAR16* Path, EFI_HANDLE ImageHandl
 						UINTN RawDataSize = (UINTN)specific_section_header->SizeOfRawData;
 						EFI_PHYSICAL_ADDRESS SectionAddress = AllocatedMemory + (UINT64)specific_section_header->VirtualAddress;
 
-
 						_file->SetPosition(_file, (UINT64)specific_section_header->PointerToRawData);
-						if (RawDataSize != 0) // Apparently some UEFI implementations can't deal with reading 0 byte sections
-						{
-
+						if (RawDataSize != 0)
 							_file->Read(_file, &RawDataSize, (EFI_PHYSICAL_ADDRESS*)SectionAddress); // (void*)SectionAddress
-						}
 					}
 
 					if (AllocatedMemory != PEHeader.OptionalHeader.ImageBase && PEHeader.OptionalHeader.NumberOfRvaAndSizes > IMAGE_DIRECTORY_ENTRY_BASERELOC) // Need to perform relocations
@@ -201,21 +179,18 @@ void __LoadFile(BLOCKINFO* bi, UINTN mapKey, CHAR16* Path, EFI_HANDLE ImageHandl
 						IMAGE_BASE_RELOCATION* Relocation_Directory_Base = (IMAGE_BASE_RELOCATION*)(AllocatedMemory + (UINT64)PEHeader.OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
 						IMAGE_BASE_RELOCATION* RelocTableEnd = (IMAGE_BASE_RELOCATION*)(AllocatedMemory + (UINT64)PEHeader.OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].Size + (UINT64)PEHeader.OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
 
-						// Determine by how much we are off the executable's intended ImageBase
 						UINT64 delta = 0;
+
 						if (AllocatedMemory > PEHeader.OptionalHeader.ImageBase)
-						{
 							delta = AllocatedMemory - PEHeader.OptionalHeader.ImageBase; // Determine by how much we are off the executable's intended ImageBase
-						}
 						else
-						{
 							delta = PEHeader.OptionalHeader.ImageBase - AllocatedMemory;
-						}
+
 						UINT64 NumRelocationsPerChunk = 0;
 
 						for (; (Relocation_Directory_Base->SizeOfBlock) && (Relocation_Directory_Base < RelocTableEnd);)
 						{
-							EFI_PHYSICAL_ADDRESS page = AllocatedMemory + (UINT64)Relocation_Directory_Base->VirtualAddress; //This virtual address is page-specific, and needs to be offset by Header_memory
+							EFI_PHYSICAL_ADDRESS page = AllocatedMemory + (UINT64)Relocation_Directory_Base->VirtualAddress; // This virtual address is page-specific, and needs to be offset by Header_memory
 							UINT16* DataToFix = (UINT16*)((UINT8*)Relocation_Directory_Base + IMAGE_SIZEOF_BASE_RELOCATION); // The base relocation size is 8 bytes (64 bits)
 							NumRelocationsPerChunk = (Relocation_Directory_Base->SizeOfBlock - IMAGE_SIZEOF_BASE_RELOCATION) / sizeof(UINT16);
 
@@ -228,22 +203,15 @@ void __LoadFile(BLOCKINFO* bi, UINTN mapKey, CHAR16* Path, EFI_HANDLE ImageHandl
 								else if (DataToFix[i] >> EFI_PAGE_SHIFT == 10) // 64-bit offset relocation only, check uppper 4 bits of each DataToFix entry
 								{
 									if (AllocatedMemory > PEHeader.OptionalHeader.ImageBase)
-									{
 										*((UINT64*)((UINT8*)page + (DataToFix[i] & EFI_PAGE_MASK))) += delta;
-									}
 									else
-									{
 										*((UINT64*)((UINT8*)page + (DataToFix[i] & EFI_PAGE_MASK))) -= delta;
-									}
 								}
 								else
-								{
 									Print(L"[E] Something happened whilst relocating. i: %llu, Relocation_Directory_Base: 0x%llx \r\n", i, Relocation_Directory_Base);
-								}
 							}
 
 							Relocation_Directory_Base = (IMAGE_BASE_RELOCATION*)((UINT8*)Relocation_Directory_Base + Relocation_Directory_Base->SizeOfBlock);
-
 						}
 					}
 
@@ -253,20 +221,20 @@ void __LoadFile(BLOCKINFO* bi, UINTN mapKey, CHAR16* Path, EFI_HANDLE ImageHandl
 		}
 	}
 
-
 	EntryPointFunction EntryPointPlaceholder = (EntryPointFunction)(Header_memory);
 
 	Get_BootService(SystemTable)->SetWatchdogTimer(0, 0, 0, NULL);
 	SystemTable->ConOut->ClearScreen(SystemTable->ConOut);
 	Get_BootService(SystemTable)->ExitBootServices(ImageHandle, mapKey);
-	CallConstructors();
-	Print(L"%d\n", EntryPointPlaceholder(bi));
 
+	CallConstructors();
+
+	Print(L"%d\n", EntryPointPlaceholder(bi));
 }
 
 EFI_FILE* LoadFile(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable)
 {
-	EFI_FILE* LoadedFile;
+	EFI_FILE* LoadedFile = NULL;
 
 	EFI_LOADED_IMAGE_PROTOCOL* LoadedImage = NULL;
 	SystemTable->BootServices->HandleProtocol(ImageHandle, &gEfiLoadedImageProtocolGuid, (void**)&LoadedImage);
@@ -274,17 +242,14 @@ EFI_FILE* LoadFile(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandle, EF
 	EFI_SIMPLE_FILE_SYSTEM_PROTOCOL* FileSystem = NULL;
 	SystemTable->BootServices->HandleProtocol(LoadedImage->DeviceHandle, &gEfiSimpleFileSystemProtocolGuid, (void**)&FileSystem);
 
-	if (Directory == NULL) {
+	if (Directory == NULL)
 		FileSystem->OpenVolume(FileSystem, &Directory);
-	}
-
+	
 	EFI_STATUS s = Directory->Open(Directory, &LoadedFile, Path, EFI_FILE_MODE_READ, EFI_FILE_READ_ONLY);
-	if (s != EFI_SUCCESS) {
+	if (s != EFI_SUCCESS)
 		return NULL;
-	}
 
 	return LoadedFile;
-
 }
 
 EFI_STATUS Get_MemoryMap(BLOCKINFO* bi, EFI_SYSTEM_TABLE* SystemTable, UINTN* mapKey)
@@ -293,7 +258,8 @@ EFI_STATUS Get_MemoryMap(BLOCKINFO* bi, EFI_SYSTEM_TABLE* SystemTable, UINTN* ma
 	SystemTable->BootServices->AllocatePool(EfiLoaderData, bi->MMapSize, (void**)&bi->MMap);
 	SystemTable->BootServices->GetMemoryMap(&bi->MMapSize, bi->MMap, mapKey, &bi->MMapDescriptorSize, &bi->MMapDescriptorVersion);
 
-	if (bi->MMap == NULL) { return EFI_ABORTED; }
+	if (bi->MMap == NULL)
+		return EFI_ABORTED;
 
 	return EFI_SUCCESS;
 }
@@ -301,23 +267,23 @@ EFI_STATUS Get_MemoryMap(BLOCKINFO* bi, EFI_SYSTEM_TABLE* SystemTable, UINTN* ma
 PSF1_FONT* LoadPSF1Font(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable)
 {
 	EFI_FILE* font = LoadFile(Directory, Path, ImageHandle, SystemTable);
-	if (font == NULL) return NULL;
+	if (font == NULL)
+		return NULL;
 
 	PSF1_HEADER* fontHeader = NULL;
 	SystemTable->BootServices->AllocatePool(EfiLoaderData, sizeof(PSF1_HEADER), (void**)&fontHeader);
 	UINTN size = sizeof(PSF1_HEADER);
 	font->Read(font, &size, fontHeader);
 
-	if (fontHeader->magic[0] != PSF1_MAGIC0 || fontHeader->magic[1] != PSF1_MAGIC1) {
+	if (fontHeader->magic[0] != PSF1_MAGIC0 || fontHeader->magic[1] != PSF1_MAGIC1)
 		return NULL;
-	}
 
 	UINTN glyphBufferSize = fontHeader->charsize * 256;
-	if (fontHeader->mode == 1) { //512 glyph mode
-		glyphBufferSize = fontHeader->charsize * 512;
-	}
 
-	void* glyphBuffer;
+	if (fontHeader->mode == 1)
+		glyphBufferSize = fontHeader->charsize * 512;
+
+	void* glyphBuffer = NULL;
 	{
 		font->SetPosition(font, sizeof(PSF1_HEADER));
 		SystemTable->BootServices->AllocatePool(EfiLoaderData, glyphBufferSize, (void**)&glyphBuffer);
@@ -328,17 +294,15 @@ PSF1_FONT* LoadPSF1Font(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandl
 	SystemTable->BootServices->AllocatePool(EfiLoaderData, sizeof(PSF1_FONT), (void**)&finishedFont);
 	finishedFont->psf1_Header = fontHeader;
 	finishedFont->glyphBuffer = glyphBuffer;
-	return finishedFont;
 
+	return finishedFont;
 }
 
 uint32_t __strcmp(const char* a, const char* b, size_t length)
 {
-	for (size_t i = 0; i < length; i++) {
-
+	for (size_t i = 0; i < length; i++)
 		if (a[i] != b[i])
 			return 0;
-	}
 
 	return 1;
 }
