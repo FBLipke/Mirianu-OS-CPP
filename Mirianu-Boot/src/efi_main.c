@@ -76,7 +76,5 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable)
 
 	Print(L"[BOOTX64] Kernel Closed!\n");
 
-	while (1) { ___Halt(); }
-
 	return EFI_SUCCESS;
 }

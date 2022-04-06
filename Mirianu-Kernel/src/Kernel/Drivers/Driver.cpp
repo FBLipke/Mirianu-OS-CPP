@@ -56,7 +56,6 @@ void DriverManager::Close()
 		_drivers[i]->Close();
 }
 
-
 void DriverManager::Add(const CHAR8* key, Driver* drv)
 {
 	_drivers.push_back(key, drv);

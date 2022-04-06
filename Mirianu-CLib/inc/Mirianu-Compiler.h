@@ -29,32 +29,32 @@ static void ___Cli() { _disable(); }
 /// Loads the global descriptor table (GDT) with the value in the specified memory location.
 /// </summary>
 /// <param name="ptr"></param>
-static void ___lgdt(void* ptr) { _lgdt(ptr); }
+static void ___Lgdt(void* ptr) { _lgdt(ptr); }
 
 /// <summary>
 /// Stores the global descriptor table (GDT) with the value in the specified memory location.
 /// </summary>
 /// <param name="ptr"></param>
-static void ___sgdt(void* ptr) { _sgdt(ptr); }
+static void ___Sgdt(void* ptr) { _sgdt(ptr); }
 
 /// <summary>
 /// Loads the interrupt descriptor table register (IDTR) with the value in the specified memory location.
 /// </summary>
 /// <param name="ptr"></param>
-static void ___lidt(void* ptr) { __lidt(ptr); }
+static void ___Lidt(void* ptr) { __lidt(ptr); }
 
 /// <summary>
 /// Stores the value of the interrupt descriptor table register (IDTR) in the specified memory location.
 /// </summary>
 /// <param name="ptr"></param>
-static void ___sidt(void* ptr) { __sidt(ptr); }
+static void ___Sidt(void* ptr) { __sidt(ptr); }
 
 /// <summary>
 /// Generates the in instruction, returning a single byte read from the port specified by Port.
 /// </summary>
 /// <param name="port"></param>
 /// <returns></returns>
-static uint8_t ___inbyte(uint16_t port) { __inbyte(port); }
+static uint8_t ___inByte(uint16_t port) { __inbyte(port); }
 
 /// <summary>
 /// Generates the out instruction, which sends 1 byte specified by Data out the I/O port specified by Port.
@@ -69,7 +69,7 @@ static void ___outByte(uint16_t port, uint8_t value) { __outbyte(port, value); }
 /// </summary>
 /// <param name="data"></param>
 /// <param name="funcId"></param>
-static void ___cpuid(int32_t* data, int32_t funcId) { __cpuid(data, funcId); }
+static void ___CpuId(int32_t* data, int32_t funcId) { __cpuid(data, funcId); }
 
 /// <summary>
 /// Generates the cpuid instruction that is available on x86 and x64.
@@ -78,7 +78,7 @@ static void ___cpuid(int32_t* data, int32_t funcId) { __cpuid(data, funcId); }
 /// <param name="data"></param>
 /// <param name="funcId"></param>
 /// <param name="SfuncId"></param>
-static void ___cpuidEx(int32_t* data, int32_t funcId, int32_t SfuncId) { __cpuidex(data, funcId, SfuncId); }
+static void ___CpuIdEx(int32_t* data, int32_t funcId, int32_t SfuncId) { __cpuidex(data, funcId, SfuncId); }
 
 /// <summary>
 /// Writes the value Data to the CR0 register.
@@ -139,7 +139,6 @@ static uint64_t ___ReadCr4() { return __readcr4(); }
 /// </summary>
 /// <returns></returns>
 static uint64_t ___ReadCr8() { return __readcr8(); }
-
 #endif // _WIN64
 #else
 #define _USE_ASM_LoadGDT
