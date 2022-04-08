@@ -72,6 +72,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="inc\Kernel\Arch\x86_64\PIC\pic.h" />
+    <ClCompile Include="src\Kernel\Arch\x86_64\GDT\GDT.cpp" />
+    <ClCompile Include="src\Kernel\Arch\x86_64\IDT\IDT.cpp" />
+    <ClCompile Include="src\Kernel\Arch\x86_64\PIC\pic.cpp" />
     <ClCompile Include="src\Kernel\Drivers\Driver.cpp" />
     <ClCompile Include="src\Kernel\Drivers\Video\BasicRenderer.cpp" />
     <ClCompile Include="src\Kernel\Kernel.cpp" />
@@ -79,9 +83,10 @@
     <ClCompile Include="src\kernel_Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\Kernel\Arch\x86_64\GDT\gdt.h" />
+    <ClInclude Include="inc\Kernel\Arch\x86_64\IDT\idt.h" />
     <ClInclude Include="inc\Kernel\Drivers\Drivers.h" />
     <ClInclude Include="inc\Kernel\Drivers\Video\BasicRenderer.h" />
-    <ClInclude Include="inc\Kernel\List.h" />
     <ClInclude Include="inc\Kernel\Memory\EFIMemory.h" />
     <ClInclude Include="inc\Kernel_Main.h" />
     <ClInclude Include="inc\Kernel\Kernel.h" />
@@ -93,6 +98,10 @@
     <None Include="zap-light16.psf">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <NASM Include="src\Kernel\Arch\x86_64\GDT\x64_gdt.asm" />
+    <NASM Include="src\Kernel\Arch\x86_64\IDT\x64_idt.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

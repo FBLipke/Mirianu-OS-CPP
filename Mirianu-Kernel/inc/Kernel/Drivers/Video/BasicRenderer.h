@@ -12,7 +12,6 @@ public:
 	~BasicRenderer();
 	Point CursorPosition;
 private:
-
 	void putChar(char chr, uint32_t xOff, uint32_t yOff);
-	Framebuffer* fb;
+	Framebuffer* fb = 0;
 };

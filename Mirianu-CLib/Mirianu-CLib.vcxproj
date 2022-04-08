@@ -46,8 +46,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\List.h" />
     <ClInclude Include="inc\Marble-Compiler.h" />
     <ClInclude Include="inc\Mirianu-Compiler.h" />
+    <ClInclude Include="inc\stdio.h" />
     <ClInclude Include="inc\types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

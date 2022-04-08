@@ -55,6 +55,7 @@ static void ___Sidt(void* ptr) { __sidt(ptr); }
 /// <param name="port"></param>
 /// <returns></returns>
 static uint8_t ___inByte(uint16_t port) { __inbyte(port); }
+#define inb(p, v) ___inByte(p)
 
 /// <summary>
 /// Generates the out instruction, which sends 1 byte specified by Data out the I/O port specified by Port.
@@ -62,6 +63,7 @@ static uint8_t ___inByte(uint16_t port) { __inbyte(port); }
 /// <param name="port"></param>
 /// <param name="value"></param>
 static void ___outByte(uint16_t port, uint8_t value) { __outbyte(port, value); }
+#define outb(p, v) ___outByte(p,v)
 
 /// <summary>
 /// Generates the cpuid instruction that is available on x86 and x64.

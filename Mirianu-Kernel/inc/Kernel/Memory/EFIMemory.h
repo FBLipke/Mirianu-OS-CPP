@@ -16,16 +16,16 @@ extern const char* EFI_MEMORY_TYPE_STRINGS[];
 
 struct MemoryChunk
 {
-    MemoryChunk* next;
-    MemoryChunk* prev;
-    bool allocated;
-    size_t size;
+    MemoryChunk* next = 0;
+    MemoryChunk* prev = 0;
+    bool allocated = false;
+    size_t size = 0;
 };
 
 class MemoryManager
 {
 protected:
-    MemoryChunk* first;
+    MemoryChunk* first = 0;
 public:
     static MemoryManager* activeMemoryManager;
 

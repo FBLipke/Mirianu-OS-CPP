@@ -3,7 +3,9 @@
 #include <Mirianu-Compiler.h>
 #include <Kernel/Drivers/Drivers.h>
 #include <Kernel/Memory/EFIMemory.h>
-#include <Kernel/List.h>
+#include <List.h>
+#include <Kernel/Arch/x86_64/GDT/gdt.h>
+#include <Kernel/Arch/x86_64/IDT/idt.h>
 
 class Kernel
 {
@@ -15,7 +17,9 @@ public:
 	void Run();
 	void Close();
 private:
-	BLOCKINFO* blockinfo;
-	DriverManager* drvManager;
-	BasicRenderer* renderer;
+	BLOCKINFO* blockinfo = 0;
+	DriverManager* drvManager = 0;
+	BasicRenderer* renderer = 0;
+	GDT gdt;
+	IDT idt;
 };

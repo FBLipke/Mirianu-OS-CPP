@@ -9,7 +9,6 @@ int kmain(BLOCKINFO * bi)
 		return 101;
 
 	krnl.Run();
-
 	krnl.Close();
 
 	while (1) {	___Halt(); }

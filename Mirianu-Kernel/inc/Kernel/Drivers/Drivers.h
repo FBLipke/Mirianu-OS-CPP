@@ -1,7 +1,7 @@
 #pragma once
 #include <efi_mirianu.h>
 #include <Kernel/Drivers/Video/BasicRenderer.h>
-#include <Kernel/List.h>
+#include <List.h>
 
 class Driver
 {
@@ -14,7 +14,7 @@ public:
 	void Stop();
 	void Close();
 private:
-	const char* name;
+	const char* name = "";
 };
 
 class DriverManager

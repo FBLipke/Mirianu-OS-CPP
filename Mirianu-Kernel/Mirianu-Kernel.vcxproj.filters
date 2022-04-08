@@ -30,6 +30,18 @@
     <ClCompile Include="src\Kernel\Drivers\Driver.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\Kernel\Arch\x86_64\GDT\GDT.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kernel\Arch\x86_64\IDT\IDT.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Kernel\Arch\x86_64\PIC\pic.h">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kernel\Arch\x86_64\PIC\pic.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\Kernel_Main.h">
@@ -47,12 +59,23 @@
     <ClInclude Include="inc\Kernel\Memory\EFIMemory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Kernel\List.h">
+    <ClInclude Include="inc\Kernel\Arch\x86_64\GDT\gdt.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Kernel\Arch\x86_64\IDT\idt.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="zap-light16.psf" />
     <None Include="startup.nsh" />
+  </ItemGroup>
+  <ItemGroup>
+    <NASM Include="src\Kernel\Arch\x86_64\GDT\x64_gdt.asm">
+      <Filter>Quelldateien</Filter>
+    </NASM>
+    <NASM Include="src\Kernel\Arch\x86_64\IDT\x64_idt.asm">
+      <Filter>Quelldateien</Filter>
+    </NASM>
   </ItemGroup>
 </Project>
