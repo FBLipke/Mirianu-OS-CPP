@@ -10,7 +10,8 @@
 class Kernel
 {
 public:
-	Kernel(BasicRenderer* pRenderer, BLOCKINFO* bi);
+	Kernel() {}
+	Kernel(MemoryManager* memory, BasicRenderer* pRenderer, BLOCKINFO* bi);
 	~Kernel();
 	
 	bool Init();
@@ -20,6 +21,8 @@ private:
 	BLOCKINFO* blockinfo = 0;
 	DriverManager* drvManager = 0;
 	BasicRenderer* renderer = 0;
+	MemoryManager* MemManager = 0;
+	
 	GDT gdt;
 	IDT idt;
 };

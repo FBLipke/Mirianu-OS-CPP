@@ -58,6 +58,8 @@
       <BasicRuntimeChecks>
       </BasicRuntimeChecks>
       <RuntimeLibrary />
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <SubSystem>Native</SubSystem>
@@ -69,6 +71,9 @@
       <AdditionalDependencies>
       </AdditionalDependencies>
       <RandomizedBaseAddress />
+      <Driver>Driver</Driver>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <BaseAddress>0xC0000000</BaseAddress>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

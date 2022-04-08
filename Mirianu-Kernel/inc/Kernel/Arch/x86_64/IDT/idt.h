@@ -1,7 +1,6 @@
 #pragma once
 #include <Mirianu-Compiler.h>
 #include <stdio.h>
-#include <Kernel/Arch/x86_64/PIC/pic.h>
 
 typedef PACK(struct idt_entry_t
 {
@@ -76,7 +75,6 @@ public:
 	void Init();
 
 private:
-	PICS pic;
 	void Set_Gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags);
 
 	idt_entry_t idt_entries[MAX_BYTE];

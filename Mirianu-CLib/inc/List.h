@@ -3,12 +3,12 @@
 template<typename T>
 struct ListNode
 {
-    ListNode(const CHAR8* _k, const T& e) : key(_k), data(e), next(0), prev(0) {}
+    ListNode(const char* _k, const T& e) : key(_k), data(e), next(0), prev(0) {}
 
     T data;
-    const CHAR8* key;
-    ListNode<T>* next;
-    ListNode<T>* prev;
+    const char* key = 0;
+    ListNode<T>* next = 0;
+    ListNode<T>* prev = 0;
 };
 
 template<typename T>
@@ -25,8 +25,8 @@ public:
     }
 
     int size() { return size_; }
-    void push_back(const CHAR8* key, const T& e);
-    void push_front(const CHAR8* key, const T& e);
+    void push_back(const char* key, const T& e);
+    void push_front(const char* key, const T& e);
     void Clear();
 
     T GetAt(int index);
@@ -34,7 +34,7 @@ public:
     T operator[](int index);
     int IndexOf(const T& e);
 
-    void Remove(const CHAR8* key);
+    void Remove(const char* key);
     void Remove(int index);
     void Remove(const T& e);
 private:
@@ -43,8 +43,8 @@ private:
 
     int size_;
 
-    ListNode<T>* insertInternal(const CHAR8* key, const T& e, ListNode<T>* pos);
-    void removeInternal(const CHAR8* key, ListNode<T>* pos);
+    ListNode<T>* insertInternal(const char* key, const T& e, ListNode<T>* pos);
+    void removeInternal(const char* key, ListNode<T>* pos);
 
     //Iterators
 public:
@@ -97,7 +97,7 @@ public:
 // Implementations
 ////////////
 template<typename T>
-ListNode<T>* List<T>::insertInternal(const CHAR8* key, const T& e, ListNode<T>* pos)
+ListNode<T>* List<T>::insertInternal(const char* key, const T& e, ListNode<T>* pos)
 {
     ListNode<T>* n = new ListNode<T>(key, e);
     size_++;
@@ -129,7 +129,7 @@ ListNode<T>* List<T>::insertInternal(const CHAR8* key, const T& e, ListNode<T>* 
 }
 
 template<typename T>
-void List<T>::push_back(const CHAR8* key, const T& e)
+void List<T>::push_back(const char* key, const T& e)
 {
     // inserts before the position, 
     // 0 is the end() iterator
@@ -137,14 +137,14 @@ void List<T>::push_back(const CHAR8* key, const T& e)
     insertInternal(key, e, 0);
 }
 template<typename T>
-void List<T>::push_front(const CHAR8* key, const T& e)
+void List<T>::push_front(const char* key, const T& e)
 {
     // insert before the head
     insertInternal(key, e, head_);
 }
 
 template<typename T>
-void List<T>::removeInternal(const CHAR8* key, ListNode<T>* pos)
+void List<T>::removeInternal(const char* key, ListNode<T>* pos)
 {
     if (pos)
     {
@@ -179,7 +179,7 @@ void List<T>::Remove(const T& e)
 }
 
 template<typename T>
-void List<T>::Remove(const CHAR8* key)
+void List<T>::Remove(const char* key)
 {
     for (int i = size_; i > 0; i--)
         if (*GetNodeAt(i)->key == *key)
@@ -246,5 +246,6 @@ int List<T>::IndexOf(const T& e)
     for (int i = 0; i < size_; i++)
         if (GetAt(i) == e)
             return i;
+
     return -1;
 }

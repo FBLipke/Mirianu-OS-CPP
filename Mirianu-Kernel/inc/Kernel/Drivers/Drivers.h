@@ -27,8 +27,8 @@ public:
 	void Init();
 	void Stop();
 	void Close();
-	void Add(const CHAR8* key, Driver* drv);
-	void Remove(const CHAR8* key);
+	void Add(const char* key, Driver* drv);
+	void Remove(const char* key);
 private:
 	List<Driver*> _drivers;
 };

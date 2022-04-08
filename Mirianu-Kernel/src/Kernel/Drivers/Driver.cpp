@@ -56,12 +56,12 @@ void DriverManager::Close()
 		_drivers[i]->Close();
 }
 
-void DriverManager::Add(const CHAR8* key, Driver* drv)
+void DriverManager::Add(const char* key, Driver* drv)
 {
 	_drivers.push_back(key, drv);
 }
 
-void DriverManager::Remove(const CHAR8* key)
+void DriverManager::Remove(const char* key)
 {
 	_drivers.Remove(key);
 }

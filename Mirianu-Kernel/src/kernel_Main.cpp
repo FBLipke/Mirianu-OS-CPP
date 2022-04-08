@@ -1,10 +1,11 @@
 #include <Kernel_Main.h>
 
-int kmain(BLOCKINFO * bi)
+int kmain(BLOCKINFO* bi)
 {
 	BasicRenderer renderer = BasicRenderer(bi->frameBuffer);
-	Kernel krnl = Kernel(&renderer, bi);
-
+	MemoryManager memManagr;
+	Kernel krnl = Kernel(&memManagr, &renderer, bi);
+	
 	if (!krnl.Init())
 		return 101;
 

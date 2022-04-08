@@ -1,9 +1,10 @@
 #include <Kernel/Kernel.h>
 
-Kernel::Kernel(BasicRenderer* pRenderer, BLOCKINFO* bi)
+Kernel::Kernel(MemoryManager* memory, BasicRenderer* pRenderer, BLOCKINFO* bi)
 {
 	blockinfo = bi;
 	renderer = pRenderer;
+	MemManager = memory;
 }
 
 bool Kernel::Init()
@@ -12,12 +13,14 @@ bool Kernel::Init()
 	gdt.Init();
 	idt.Init();
 
+	MemManager->Init(1000,4096);
+	renderer->Print("[D] RUN OK! (MEMORY) should be applied successfully)!\n");
 	return true;
 }
 
 void Kernel::Run()
 {
-	renderer->Print("[D] RUN OK! (GDT and IDT should be applied successfully)!\n");
+	renderer->Print("[D] RUN OK!\n");
 }
 
 void Kernel::Close()
